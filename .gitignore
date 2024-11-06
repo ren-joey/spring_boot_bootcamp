@@ -42,3 +42,4 @@ build/
 
 ### Docker Database ###
 /mariadb_data/
+/grafana_data/
