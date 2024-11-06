@@ -7,11 +7,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/mydatabase
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=your_password
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     volumes:
-      - ./:/app
+      - .:/app
     command: ["sh", "-c", "cd app && mvn spring-boot:run"]
     depends_on:
       - db
@@ -20,8 +20,8 @@ services:
     image: mariadb:10.5
     container_name: mariadb_db
     environment:
-      - MARIADB_ROOT_PASSWORD=your_password
-      - MARIADB_DATABASE=mydatabase
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
     ports:
       - "3306:3306"
     volumes:
