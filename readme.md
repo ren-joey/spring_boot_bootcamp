@@ -119,3 +119,17 @@ export default function () {
     sleep(1);
 }
 ```
+
+### Build Package
+```bash
+mvn package
+```
+If you look in the target directory, you should see `myproject-0.0.1-SNAPSHOT.jar`. The file should be around 18 MB in size. If you want to peek inside, you can use `jar tvf`, as follows:
+```bash
+jar tvf target/myproject-0.0.1-SNAPSHOT.jar
+```
+To run that application, use the `java -jar` command, as follows:
+```bash
+java -jar target/myproject-0.0.1-SNAPSHOT.jar
+```
+
