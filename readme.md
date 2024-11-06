@@ -133,3 +133,21 @@ To run that application, use the `java -jar` command, as follows:
 java -jar target/myproject-0.0.1-SNAPSHOT.jar
 ```
 
+## Grafana
+### Access The Grafana Dashboard
+You can access the Grafana dashboard by [http://localhost:3000](http://localhost:3000) <br>
+Default username and password are `admin` and `admin` respectively.
+### Setup The Data Source
+1. Go to the `Configuration` tab
+2. Click on the `Data Sources` menu
+3. Click on the `Add data source` button
+4. Choose the `Prometheus` data source
+5. Fill the URL with `http://spring-boot-prometheus:9090`
+6. Click on the `Save & Test` button
+### Setup The Dashboard
+1. Go to the `Dashboard` tab
+2. Click on the `Create Dashboard` button
+3. Click on the `Import Dashboard` button
+4. Fill the `Grafana K6 dashboard ID` with `193`
+5. Click on the `Load` button
+6. Choose the `Prometheus` data source
