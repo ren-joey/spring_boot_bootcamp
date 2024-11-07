@@ -132,6 +132,10 @@ To run that application, use the `java -jar` command, as follows:
 ```bash
 java -jar target/myproject-0.0.1-SNAPSHOT.jar
 ```
+If you want to clean dependencies, you can use the `mvn clean` command, as follows:
+```bash
+mvn clean install -U
+```
 
 ## Grafana
 ### Access The Grafana Dashboard
@@ -148,6 +152,6 @@ Default username and password are `admin` and `admin` respectively.
 1. Go to the `Dashboard` tab
 2. Click on the `Create Dashboard` button
 3. Click on the `Import Dashboard` button
-4. Fill the `Grafana K6 dashboard ID` with `193`
+4. Fill the `Grafana K6 dashboard ID` with `193` or `893`
 5. Click on the `Load` button
 6. Choose the `Prometheus` data source
