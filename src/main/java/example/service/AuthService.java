@@ -21,11 +21,16 @@ public class AuthService {
     private JwtUtil jwtUtil;
 
     public String register(RegisterRequestDto registerRequest) {
+        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+
         User user = new User();
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setEmail(registerRequest.getEmail());
         userRepository.save(user);
+
         return "User registered successfully!";
     }
 
