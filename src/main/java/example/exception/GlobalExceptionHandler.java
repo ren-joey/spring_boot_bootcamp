@@ -25,7 +25,10 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler({
+            RuntimeException.class,
+            IllegalArgumentException.class
+    })
     public String handleRuntimeException(RuntimeException ex) {
         return ex.getMessage();  // 返回異常消息，如 "Email already exists"
     }
