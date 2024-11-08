@@ -5,7 +5,6 @@ import example.dto.RegisterRequestDto;
 import example.entity.User;
 import example.repository.UserRepository;
 import example.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

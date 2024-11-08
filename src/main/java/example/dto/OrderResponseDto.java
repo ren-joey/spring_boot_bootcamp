@@ -1,7 +1,5 @@
 package example.dto;
 
-import example.entity.Order;
-
 import java.math.BigDecimal;
 
 public class OrderResponseDto {

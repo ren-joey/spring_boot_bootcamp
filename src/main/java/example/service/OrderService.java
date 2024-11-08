@@ -5,8 +5,6 @@ import example.dto.OrderResponseDto;
 import example.entity.Order;
 import example.entity.User;
 import example.repository.OrderRepository;
-import org.aspectj.weaver.ast.Or;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +24,9 @@ public class OrderService {
 
     public List<OrderResponseDto> getOrders() {
         List<Order> orders = orderRepository.findAll();
-        List<OrderResponseDto> ordersDto = orders.stream()
+        return orders.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
-        System.out.println(ordersDto);
-        return ordersDto;
     }
 
     public Order getOrderById(Long id) {
@@ -85,16 +81,11 @@ public class OrderService {
 
     public OrderResponseDto convertToDto(Order order) {
         User user = order.getUser();
-        System.out.println(order.getName());
-        System.out.println(order.getPrice());
-        System.out.println(user.getUsername());
-        OrderResponseDto orderResponseDto = new OrderResponseDto(
+        return new OrderResponseDto(
                 order.getId(),
                 order.getName(),
                 order.getPrice(),
                 user.getUsername()
         );
-        System.out.println(orderResponseDto);
-        return orderResponseDto;
     }
 }
