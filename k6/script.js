@@ -10,22 +10,22 @@ export default function () {
     const baseUrl = 'http://localhost';
 
     const loginRes = http.post(baseUrl + '/auth/login', JSON.stringify({
-        email: 'user@gmail.com',
+        username: 'user',
         password: '123456789',
     }), {
         headers: { 'Content-Type': 'application/json' },
     });
 
     const loginSuccess = check(loginRes, {
-        'login successful': (res) => res.status === 201,
-        'token received': (res) => !!res.json('access_token'),
+        'login successful': (res) => res.status === 200,
+        'token received': (res) => !!res.body,
     });
 
-    const token = loginRes.json('access_token');
+    const token = loginRes.body;
 
     const createOrderRes = http.post(baseUrl + '/orders', JSON.stringify({
         name: 'New Product',
-        price: 99.99,
+        price: 1000,
     }), {
         headers: {
             'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export default function () {
     });
 
     const createOrderSuccess = check(createOrderRes, {
-        'order created': (res) => res.status === 201,
+        'order created': (res) => res.status === 200,
         'order id received': (res) => !!res.json('id'),
     });
 
