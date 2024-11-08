@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     private final SecretKey key = Keys
-            .hmacShaKeyFor("your-very-secure-and-long-key-for-jwt-generation".getBytes(StandardCharsets.UTF_8));
+            .hmacShaKeyFor(System.getProperty("JWT_SECRET").getBytes(StandardCharsets.UTF_8));
 
     public String extractUsername(String token) {
         return extractUsername(token, extractAllClaims(token));
