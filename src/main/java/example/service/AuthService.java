@@ -2,6 +2,7 @@ package example.service;
 
 import example.dto.LoginRequestDto;
 import example.dto.RegisterRequestDto;
+import example.dto.UserResponseDto;
 import example.entity.User;
 import example.repository.UserRepository;
 import example.security.JwtUtil;
@@ -21,9 +22,13 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public String register(RegisterRequestDto registerRequest) {
+    public User register(RegisterRequestDto registerRequest) {
         if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
             throw new RuntimeException("Email already exists");
+        }
+
+        if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
+            throw new RuntimeException("Username already exists");
         }
 
         User user = new User();
@@ -32,7 +37,7 @@ public class AuthService {
         user.setEmail(registerRequest.getEmail());
         userRepository.save(user);
 
-        return "User registered successfully!";
+        return user;
     }
 
     public String login(LoginRequestDto loginRequest) {
@@ -43,5 +48,13 @@ public class AuthService {
         } else {
             throw new RuntimeException("Invalid credentials");
         }
+    }
+
+    public UserResponseDto convertToDto(User user) {
+        return new UserResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        );
     }
 }

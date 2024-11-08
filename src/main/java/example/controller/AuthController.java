@@ -2,6 +2,7 @@ package example.controller;
 
 import example.dto.LoginRequestDto;
 import example.dto.RegisterRequestDto;
+import example.dto.UserResponseDto;
 import example.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,8 +25,10 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @RequestBody RegisterRequestDto registerRequest) {
-        return authService.register(registerRequest);
+    public UserResponseDto register(@Valid @RequestBody RegisterRequestDto registerRequest) {
+        return authService.convertToDto(
+                authService.register(registerRequest)
+        );
     }
 
     @PostMapping("/login")
