@@ -66,6 +66,11 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    public void deleteOrder(Long id) {
+        Order order = orderUserValidation(id);
+        orderRepository.delete(order);
+    }
+
     public Order orderUserValidation(Long id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (orderOptional.isEmpty()) {

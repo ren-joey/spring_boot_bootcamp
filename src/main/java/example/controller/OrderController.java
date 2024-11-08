@@ -64,4 +64,9 @@ public class OrderController {
     ) {
         return orderService.convertToDto(orderService.updateOrderPatch(id, orderRequestDto));
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+    }
 }
