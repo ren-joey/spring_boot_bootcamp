@@ -22,8 +22,7 @@ public class Order {
     @DecimalMin(value = "10", message = "Price must be more or equal than 10")
     @Column(nullable = false)
     private BigDecimal price;
-
-    @NotBlank(message = "User is required")
+    
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -56,5 +55,13 @@ public class Order {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

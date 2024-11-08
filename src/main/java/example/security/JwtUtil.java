@@ -60,6 +60,6 @@ public class JwtUtil {
     public boolean isTokenValid(String token) {
         Claims claims = extractAllClaims(token);
         return extractUsername(token, claims) != null
-                && extractExpiration(token, claims).before(new Date());
+                && extractExpiration(token, claims).after(new Date());
     }
 }
