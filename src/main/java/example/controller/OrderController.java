@@ -2,6 +2,7 @@ package example.controller;
 
 import example.dto.OrderRequestDto;
 import example.dto.OrderResponseDto;
+import example.dto.PatchValidation;
 import example.dto.PutValidation;
 import example.entity.Order;
 import example.entity.User;
@@ -54,5 +55,13 @@ public class OrderController {
             @Validated(PutValidation.class) @RequestBody OrderRequestDto orderRequestDto
     ) {
         return orderService.convertToDto(orderService.updateOrder(id, orderRequestDto));
+    }
+
+    @PatchMapping("/{id}")
+    public OrderResponseDto updateOrderPatch(
+            @PathVariable Long id,
+            @Validated(PatchValidation.class) @RequestBody OrderRequestDto orderRequestDto
+    ) {
+        return orderService.convertToDto(orderService.updateOrderPatch(id, orderRequestDto));
     }
 }

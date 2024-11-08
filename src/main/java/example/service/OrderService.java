@@ -5,6 +5,7 @@ import example.dto.OrderResponseDto;
 import example.entity.Order;
 import example.entity.User;
 import example.repository.OrderRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -44,24 +45,42 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order updateOrder(Long id, OrderRequestDto orderRequestDto) {
+    public Order updateOrder(
+            Long id,
+            OrderRequestDto orderRequestDto
+    ) {
+        Order order = orderUserValidation(id);
+        order.setName(orderRequestDto.getName());
+        order.setPrice(orderRequestDto.getPrice());
+        return orderRepository.save(order);
+    }
+
+    public Order updateOrderPatch(
+            Long id,
+            OrderRequestDto orderRequestDto
+    ) {
+        Order order = orderUserValidation(id);
+
+        if (Objects.nonNull(orderRequestDto.getName())) {
+            order.setName(orderRequestDto.getName());
+        }
+        if (Objects.nonNull(orderRequestDto.getPrice())) {
+            order.setPrice(orderRequestDto.getPrice());
+        }
+        return orderRepository.save(order);
+    }
+
+    public Order orderUserValidation(Long id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (orderOptional.isEmpty()) {
             throw new IllegalArgumentException("Order not found");
         }
         Order order = orderOptional.get();
         User user = order.getUser();
-        System.out.printf(
-                "Validated user: %s, Order user: %s\n",
-                SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString(),
-                user.getUsername()
-        );
         if (!user.getUsername().equals(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString())) {
             throw new RuntimeException("User not authorized");
         }
-        order.setName(orderRequestDto.getName());
-        order.setPrice(orderRequestDto.getPrice());
-        return orderRepository.save(order);
+        return order;
     }
 
     public OrderResponseDto convertToDto(Order order) {
