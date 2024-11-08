@@ -5,6 +5,7 @@ import example.entity.Order;
 import java.math.BigDecimal;
 
 public class OrderResponseDto {
+    private Long id;
     private String name;
     private BigDecimal price;
     private String username;
@@ -12,13 +13,27 @@ public class OrderResponseDto {
     public OrderResponseDto() {
     }
 
-    public OrderResponseDto(String name, BigDecimal price, String username) {
+    public OrderResponseDto(
+            Long id,
+            String name,
+            BigDecimal price,
+            String username
+    ) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.username = username;
     }
 
     // Getter and Setter methods
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
