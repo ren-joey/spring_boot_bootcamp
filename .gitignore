@@ -39,6 +39,9 @@ build/
 
 ### Confidential Information ###
 .env
+.env.*
+!.env.example
+
 
 ### Docker Database ###
 /mariadb_data/
