@@ -34,14 +34,15 @@ docker compose up --build -d
 ### Access The Service
 Once all dependent container are started, you may access the service by [http://localhost](http://localhost) <br>
 If you are using `Postman v2.1^` to proceed the test, you may use the [configuration](./postman/Next.js.postman_collection.json) to import the APIs at once.
-|Method|API|Payload|Header|
-|---|---|---|---|
-|GET|{{base_url}}/orders|{}|{}|
-|POST|{{base_url}}/orders/create|{"name": "test", "price": 1000}|{"Authorization" : "Bearer <JWT_TOKEN>"}|
-|PUT|{{base_url}}/orders/:id|{"orderId": "66e725481052fd75723c077f", "name": "test2"}|{"Authorization" : "Bearer <JWT_TOKEN>"}|
-|DEL|{{base_url}}/orders/:id|{"orderId": "66e8541650c76f3b8027473f"}|{"Authorization" : "Bearer <JWT_TOKEN>"}|
-|POST|{{base_url}}/auth/register|{"email": "user@gmail.com", "name": "root", "password": "123456789"}|{}|
-|POST|{{base_url}}/auth/login|{"email": "user@gmail.com", "password": "123456789"}|{}|
+
+| Method | API                        | Payload                                                                  | Header                                   |
+|--------|----------------------------|--------------------------------------------------------------------------|------------------------------------------|
+| GET    | {{base_url}}/orders        | {}                                                                       | {}                                       |
+| POST   | {{base_url}}/orders        | {"username": "test", "price": 1000}                                      | {"Authorization" : "Bearer <JWT_TOKEN>"} |
+| PUT    | {{base_url}}/orders/{id}   | {"name": "test2", "price": 1000}                                         | {"Authorization" : "Bearer <JWT_TOKEN>"} |
+| DEL    | {{base_url}}/orders/{id}   | {}                                                                       | {"Authorization" : "Bearer <JWT_TOKEN>"} |
+| POST   | {{base_url}}/auth/register | {"email": "user@gmail.com", "username": "root", "password": "123456789"} | {}                                       |
+| POST   | {{base_url}}/auth/login    | {"username": "root", "password": "123456789"}                            | {}                                       |
 
 ### Stress Test
 ```bash
