@@ -1,5 +1,6 @@
 package example.service;
 
+import example.dao.OrderDao;
 import example.dto.OrderRequestDto;
 import example.dto.OrderResponseDto;
 import example.entity.Order;
@@ -17,9 +18,14 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderDao orderDao;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(
+            OrderRepository orderRepository,
+            OrderDao orderDao
+    ) {
         this.orderRepository = orderRepository;
+        this.orderDao = orderDao;
     }
 
     public List<OrderResponseDto> getOrders() {
@@ -30,7 +36,8 @@ public class OrderService {
     }
 
     public Order getOrderById(Long id) {
-        Optional<Order> order = orderRepository.findById(id);
+
+        Optional<Order> order = orderDao.getOrderById(id);
         if (order.isEmpty()) {
             throw new IllegalArgumentException("Order not found");
         }
