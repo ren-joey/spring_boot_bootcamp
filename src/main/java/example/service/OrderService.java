@@ -1,6 +1,6 @@
 package example.service;
 
-import example.dao.OrderDao;
+import example.dao.OrderMapper;
 import example.dto.OrderRequestDto;
 import example.dto.OrderResponseDto;
 import example.entity.Order;
@@ -12,32 +12,31 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderDao orderDao;
+    private final OrderMapper orderMapper;
 
     public OrderService(
             OrderRepository orderRepository,
-            OrderDao orderDao
+            OrderMapper orderMapper
     ) {
         this.orderRepository = orderRepository;
-        this.orderDao = orderDao;
+        this.orderMapper = orderMapper;
     }
 
     public List<OrderResponseDto> getOrders() {
-        List<Order> orders = orderRepository.findAll();
-        return orders.stream()
+        List<Order> orders = orderMapper.getAllOrders();
+        return orders
+                .stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Order getOrderById(Long id) {
-
-        Optional<Order> order = orderDao.getOrderById(id);
+        Optional<Order> order = orderRepository.findById(id);
         if (order.isEmpty()) {
             throw new IllegalArgumentException("Order not found");
         }
